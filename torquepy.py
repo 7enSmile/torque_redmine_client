@@ -89,11 +89,13 @@ class TorqueManager:
         result = subprocess.run(['qstat', '-fx', '{}'.format(job_id)], capture_output=True)
         result = result.stdout.decode()
         root = ET.fromstring(result)
+
+
+
         job_json = {"job_id": root[0].find('Job_Id').text,
                     "job_name": root[0].find('Job_Name').text,
                     "job_owner": root[0].find('Job_Owner').text,
                     "queue": root[0].find('queue').text,
-                    "comment": root[0].find('comment').text,
                     "time": datetime.datetime.fromtimestamp(int(root[0].find('ctime').text)).strftime(
                         "%Y-%m-%d %H:%M:%S")
                     }
